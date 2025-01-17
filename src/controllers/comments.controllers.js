@@ -2,7 +2,7 @@ import Comment from '../models/comments.models.js';
 import Post from '../models/post.models.js';
 
 // Comment on a post
-export const commentOnPost = async (req, res) => {
+ const commentOnPost = async (req, res) => {
   const { postId, text } = req.body;
 
   try {
@@ -22,3 +22,4 @@ export const commentOnPost = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+export {commentOnPost}

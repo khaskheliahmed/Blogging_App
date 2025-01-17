@@ -11,7 +11,7 @@ const generateRefreshToken = (user) => {
     return jwt.sign({ email: user.email }, process.env.REFRESH_JWT_SECRET, {
         expiresIn: "7d",
     });
-};
+}; 
 
 
 const registerUser = async (req, res) => {
@@ -32,6 +32,8 @@ const registerUser = async (req, res) => {
             message: "user registered successfully", user: createUser
         })
     } catch (error) {
+        console.log(error);
+        
         res.status(500).json({
             message: "internal server error"
         })
@@ -52,13 +54,12 @@ const loginUser = async (req, res) => {
 
     const accessToken = generateAccessToken(user)
     const refreshToken = generateRefreshToken(user)
+    
 
     res.cookie("refreshToken", refreshToken, {  httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "None" });
 
     res.json({
         message: "user logged In successfully",
-        accessToken,
-        refreshToken,
         user
     })
 }
@@ -92,3 +93,6 @@ const regenerateAccessToken = async (req, res) => {
 
 
 export { registerUser, loginUser, logoutUser, regenerateAccessToken }
+
+
+// or ye frontend ka code hai or mujh ase https://careful-rosemaria-ahmedkhan-e74e3c6d.koyeb.app/api/v1/register"  api py chalna  hai  ab aap mujh fornd ka code de jo mere api py chale
